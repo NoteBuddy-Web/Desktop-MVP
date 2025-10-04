@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteBuddy - AI Meeting Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-primary { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .gradient-card { background: linear-gradient(135deg, #ffffff, #f8fafc); }
+        .shadow-elegant { box-shadow: 0 4px 20px -2px rgba(102, 126, 234, 0.15); }
+        .shadow-soft { box-shadow: 0 2px 10px -1px rgba(0, 0, 0, 0.08); }
+        .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white border-r border-gray-200 flex flex-col shadow-soft">
+            <!-- Logo -->
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center shadow-elegant">
+                        <span class="text-white font-bold">N</span>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-gray-900">NoteBuddy</h1>
+                        <p class="text-xs text-gray-500">AI Meeting Assistant</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-2">
+                <div class="space-y-1">
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white shadow-elegant">
+                        <span>🏠</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                        <span>📝</span>
+                        <span>Meeting Notes</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                        <span>✅</span>
+                        <span>Tasks</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                        <span>📅</span>
+                        <span>Schedule</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                        <span>🤖</span>
+                        <span>AI Assistant</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                        <span>📊</span>
+                        <span>Analytics</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="h-16 bg-white border-b border-gray-200 px-6 flex items-center justify-between shadow-soft">
+                <div class="flex-1 max-w-md">
+                    <div class="relative">
+                        <input type="text" placeholder="Search meetings, tasks, or notes..." 
+                               class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        ➕ New Meeting
+                    </button>
+                    <button class="p-2 text-gray-400 hover:text-gray-600 relative">
+                        🔔
+                        <span class="absolute -top-1 -right-1 w-2 h-2 bg-blue-600 rounded-full"></span>
+                    </button>
+                    <button class="p-2 text-gray-400 hover:text-gray-600">
+                        🌙
+                    </button>
+                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                        <span class="text-white text-sm font-medium">U</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 overflow-auto p-6">
+                <div class="space-y-6 animate-fade-in">
+                    <!-- Welcome Section -->
+                    <div class="gradient-card rounded-xl p-6 shadow-elegant border border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h1 class="text-2xl font-bold text-gray-900">Good morning! 👋</h1>
+                                <p class="text-gray-600 mt-1">
+                                    Here's what's happening with your meetings and tasks today.
+                                </p>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    Last updated: <span id="current-time"></span>
+                                </p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    🔄 Refresh
+                                </button>
+                                <button class="px-4 py-2 gradient-primary text-white rounded-lg shadow-elegant">
+                                    💬 Ask NoteBuddy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="gradient-card border border-gray-200 shadow-soft hover:shadow-elegant transition-all duration-200 cursor-pointer group p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">Meetings This Week</p>
+                                    <p class="text-2xl font-bold text-gray-900 group-hover:scale-105 transition-transform">12</p>
+                                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-700 transition-colors">+3 from last week</p>
+                                </div>
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 group-hover:scale-110 transition-all duration-200">
+                                    <span class="text-blue-600 text-lg">📅</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 w-full bg-gray-200 rounded-full h-1">
+                                <div class="gradient-primary h-1 rounded-full transition-all duration-1000" style="width: 24%"></div>
+                            </div>
+                        </div>
+
+                        <div class="gradient-card border border-gray-200 shadow-soft hover:shadow-elegant transition-all duration-200 cursor-pointer group p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">Action Items Completed</p>
+                                    <p class="text-2xl font-bold text-gray-900 group-hover:scale-105 transition-transform">24</p>
+                                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-700 transition-colors">85% completion rate</p>
+                                </div>
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 group-hover:scale-110 transition-all duration-200">
+                                    <span class="text-green-600 text-lg">✅</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 w-full bg-gray-200 rounded-full h-1">
+                                <div class="gradient-primary h-1 rounded-full transition-all duration-1000" style="width: 48%"></div>
+                            </div>
+                        </div>
+
+                        <div class="gradient-card border border-gray-200 shadow-soft hover:shadow-elegant transition-all duration-200 cursor-pointer group p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">Hours Saved</p>
+                                    <p class="text-2xl font-bold text-gray-900 group-hover:scale-105 transition-transform">8.5</p>
+                                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-700 transition-colors">Through AI assistance</p>
+                                </div>
+                                <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center group-hover:bg-yellow-200 group-hover:scale-110 transition-all duration-200">
+                                    <span class="text-yellow-600 text-lg">⏰</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 w-full bg-gray-200 rounded-full h-1">
+                                <div class="gradient-primary h-1 rounded-full transition-all duration-1000" style="width: 17%"></div>
+                            </div>
+                        </div>
+
+                        <div class="gradient-card border border-gray-200 shadow-soft hover:shadow-elegant transition-all duration-200 cursor-pointer group p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">Team Productivity</p>
+                                    <p class="text-2xl font-bold text-gray-900 group-hover:scale-105 transition-transform">+15%</p>
+                                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-700 transition-colors">Compared to last month</p>
+                                </div>
+                                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 group-hover:scale-110 transition-all duration-200">
+                                    <span class="text-purple-600 text-lg">📈</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 w-full bg-gray-200 rounded-full h-1">
+                                <div class="gradient-primary h-1 rounded-full transition-all duration-1000" style="width: 30%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real-time Activity Indicator -->
+                    <div class="gradient-card border border-gray-200 shadow-soft p-4 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-sm font-medium text-gray-900">Live Activity</span>
+                                <span class="text-xs text-gray-500">All systems operational</span>
+                            </div>
+                            <div class="flex items-center space-x-4 text-xs text-gray-500">
+                                <span class="flex items-center">
+                                    <span class="mr-1">📊</span>
+                                    3 meetings in progress
+                                </span>
+                                <span class="flex items-center">
+                                    <span class="mr-1">👥</span>
+                                    12 active users
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Upcoming Meetings -->
+                        <div class="gradient-card border border-gray-200 shadow-soft rounded-lg">
+                            <div class="p-6 border-b border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                                    <span class="mr-2">📅</span>
+                                    Today's Schedule
+                                </h3>
+                                <p class="text-sm text-gray-600 mt-1">Your upcoming meetings and appointments</p>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-900">Project Phoenix Review</h4>
+                                        <div class="flex items-center space-x-4 mt-1">
+                                            <span class="text-sm text-gray-500 flex items-center">
+                                                <span class="mr-1">⏰</span>
+                                                10:00 AM
+                                            </span>
+                                            <span class="text-sm text-gray-500 flex items-center">
+                                                <span class="mr-1">👥</span>
+                                                5 participants
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium text-blue-700 bg-blue-100 rounded-full">Upcoming</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-gray-900">Sales Strategy Discussion</h4>
+                                        <div class="flex items-center space-x-4 mt-1">
+                                            <span class="text-sm text-gray-500 flex items-center">
+                                                <span class="mr-1">⏰</span>
+                                                2:30 PM
+                                            </span>
+                                            <span class="text-sm text-gray-500 flex items-center">
+                                                <span class="mr-1">👥</span>
+                                                3 participants
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium text-blue-700 bg-blue-100 rounded-full">Upcoming</span>
+                                </div>
+                                <button class="w-full mt-4 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    View Full Schedule
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Recent Meeting Summaries -->
+                        <div class="gradient-card border border-gray-200 shadow-soft rounded-lg">
+                            <div class="p-6 border-b border-gray-200">
+                                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                                    <span class="mr-2">💬</span>
+                                    Recent Summaries
+                                </h3>
+                                <p class="text-sm text-gray-600 mt-1">AI-generated meeting insights and action items</p>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1">
+                                            <h4 class="font-medium text-gray-900">Q3 Sales Planning Meeting</h4>
+                                            <p class="text-sm text-gray-600 mt-1 line-clamp-2">
+                                                Discussed target goals, new client strategies, and resource allocation...
+                                            </p>
+                                            <div class="flex items-center space-x-4 mt-2">
+                                                <span class="text-xs text-gray-500">Yesterday</span>
+                                                <span class="px-2 py-1 text-xs font-medium text-gray-700 bg-gray-200 rounded-full">3 action items</span>
+                                            </div>
+                                        </div>
+                                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center ml-3">
+                                            <span class="text-blue-600 text-xs font-bold">AI</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="w-full mt-4 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                    View All Summaries
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleTimeString();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Add some interactivity
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.textContent.includes('Refresh')) {
+                    this.innerHTML = '🔄 Refreshing...';
+                    setTimeout(() => {
+                        this.innerHTML = '🔄 Refresh';
+                    }, 1000);
+                } else if (this.textContent.includes('Ask NoteBuddy')) {
+                    alert('🤖 AI Assistant: "How can I help you with your meetings today?"');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
