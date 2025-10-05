@@ -46,11 +46,9 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
             <img  
-                src="/Desktop-MVP/images/logo-black.png" 
-                alt="NoteBuddy Logo" 
-                className="h-8 w-auto" // adjust size as needed
-                theme === 'dark' ? 'brightness-0 invert' : ''
-              }`} 
+              src="/Desktop-MVP/images/logo-black.png" 
+              alt="NoteBuddy Logo" 
+              className={`h-8 w-auto ${theme === 'dark' ? 'brightness-0 invert' : ''}`}
             />
           </div>
           <div className="hidden sm:block">
